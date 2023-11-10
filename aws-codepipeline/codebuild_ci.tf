@@ -1,12 +1,13 @@
-resource "aws_codebuild_project" "cd" {
-  name = var.override_name == "" ? "${local.name}-cd" : "${var.override_name}-cd"
-  service_role = var.codebuild_cd_iam_role
-  build_timeout= var.cd_build_timeout
+resource "aws_codebuild_project" "ci" {
+  name = var.override_name == "" ? "${local.name}-ci" : "${var.override_name}-ci"
+  service_role = var.codebuild_ci_iam_role
+  build_timeout= var.ci_build_timeout
   
   cache {
     type = lookup(local.cache, "type", null)
     modes = lookup(local.cache, "modes", null)
   }
+
   environment {
     compute_type = var.compute_type
     image = var.build_image
@@ -20,7 +21,7 @@ resource "aws_codebuild_project" "cd" {
   }
   source {
     type = "CODEPIPELINE"
-    buildspec = var.buildspec_cd
+    buildspec = var.buildspec_ci
   }
   artifacts {
     type = "CODEPIPELINE"
@@ -33,5 +34,5 @@ resource "aws_codebuild_project" "cd" {
       security_group_ids = vpc_config.value.security_group_ids
     }
   }
-  tags = module.tags_cd.tags
+  tags = module.tags_ci.tags
 }
