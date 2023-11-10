@@ -14,6 +14,7 @@ variable "project" {
 
 variable "service" {
   type = string
+  default = ""
 }
 
 variable "creator" {

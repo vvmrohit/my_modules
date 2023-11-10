@@ -145,6 +145,7 @@ variable "cors_rules" {
         max_age_seconds = number
     })
   )
+  default = []
 }
 
 variable "tags_override" {
