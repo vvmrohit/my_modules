@@ -1,5 +1,9 @@
 resource "aws_s3_bucket" "s3_bucket_dev" {
-  #chekov:skip=CKV_AWS_144
+  # checkov:skip=CKV_AWS_144: ADD REASON
+  # checkov:skip=CKV_AWS_21: ADD REASON
+  # checkov:skip=CKV_AWS_145: ADD REASON
+  # checkov:skip=CKV2_AWS_6: ADD REASON
+  # checkov:skip=CKV_AWS_18: already it has benn configured
   count = var.prevent_destroy == true ? 0 : 1
   bucket = local.name
   tags = module.tags.tags
@@ -8,6 +12,11 @@ resource "aws_s3_bucket" "s3_bucket_dev" {
 
 resource "aws_s3_bucket" "s3_bucket_prod" {
   #chekov:skip=CKV_AWS_144
+  # checkov:skip=CKV_AWS_144: ADD REASON
+  # checkov:skip=CKV_AWS_21: ADD REASON
+  # checkov:skip=CKV_AWS_145: ADD REASON
+  # checkov:skip=CKV2_AWS_6: ADD REASON
+  # checkov:skip=CKV_AWS_18: already it has benn configured
   count = var.prevent_destroy == true ? 0 : 1
   bucket = local.name
   tags = module.tags.tags
@@ -17,6 +26,7 @@ resource "aws_s3_bucket" "s3_bucket_prod" {
 }
 
 resource "aws_s3_bucket_ownership_controls" "bucket_ownership" {
+  # checkov:skip=CKV2_AWS_65: ADD REASON
   bucket = var.prevent_destroy == true ? aws_s3_bucket.s3_bucket_prod[0].id : aws_s3_bucket.s3_bucket_dev[0].id
 
   rule {

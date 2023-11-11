@@ -132,4 +132,10 @@ variable "tags_override" {
   description = "A custom map of tags to override default tags"
 }
 
+variable "permissions_boundry" {
+  type = string
+  description = "The name of permisson bound attached to the role"
+  default = "AWS_BOM_POL_CustomRolePermissionBoundry"
+}
+
 

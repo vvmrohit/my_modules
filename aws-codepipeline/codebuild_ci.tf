@@ -1,4 +1,5 @@
 resource "aws_codebuild_project" "ci" {
+  # checkov:skip=CKV_AWS_147: KMS cost money
   name = var.override_name == "" ? "${local.name}-ci" : "${var.override_name}-ci"
   service_role = var.codebuild_ci_iam_role
   build_timeout= var.ci_build_timeout

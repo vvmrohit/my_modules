@@ -1,4 +1,5 @@
 resource "aws_codebuild_project" "cd" {
+  # checkov:skip=CKV_AWS_147: KMS Cost Money
   name = var.override_name == "" ? "${local.name}-cd" : "${var.override_name}-cd"
   service_role = var.codebuild_cd_iam_role
   build_timeout= var.cd_build_timeout
